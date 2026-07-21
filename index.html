@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AB Edits — Digital Creator</title>
+<meta name="description" content="AB Edits — Digital Creator. Birthday Web Pack. DM to order.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#08080a;
+    --bg-radial: radial-gradient(120% 90% at 50% -10%, #151519 0%, #08080a 55%);
+    --metal-1:#3a3a40;
+    --metal-2:#232326;
+    --metal-3:#131315;
+    --metal-4:#4e4e56;
+    --silver:#eef0f4;
+    --silver-dim:#9a9aa4;
+    --purple:#b34bf0;
+    --purple-2:#7c2ee0;
+    --purple-glow: rgba(179,75,240,0.35);
+    --line: rgba(255,255,255,0.08);
+    --radius: 22px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg-radial), var(--bg);
+    color:var(--silver);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{ background:var(--purple-glow); color:#fff; }
+
+  a{ color:inherit; }
+
+  .noise{
+    position:fixed; inset:0; pointer-events:none; z-index:1; opacity:0.035; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  header.nav{
+    position:fixed; top:0; left:0; right:0; z-index:20;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 6vw;
+    backdrop-filter:blur(14px);
+    background:linear-gradient(to bottom, rgba(8,8,10,0.75), rgba(8,8,10,0));
+  }
+  .brandmark{ display:flex; align-items:center; gap:10px; font-family:'Manrope',sans-serif; font-weight:700; letter-spacing:0.02em; font-size:15px; }
+  .brandmark img{ width:26px; height:26px; border-radius:50%; }
+  .nav-cta{
+    font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.04em;
+    border:1px solid var(--line); padding:9px 18px; border-radius:999px;
+    text-decoration:none; color:var(--silver-dim);
+    transition:all .25s ease;
+  }
+  .nav-cta:hover{ color:#fff; border-color:var(--purple); box-shadow:0 0 18px var(--purple-glow); }
+
+  main{ position:relative; z-index:2; }
+
+  /* HERO */
+  .hero{
+    min-height:100svh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:140px 6vw 80px;
+    text-align:center;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.22em; text-transform:uppercase;
+    color:var(--purple); margin-bottom:22px; opacity:0.9;
+  }
+  .hero h1{
+    font-family:'Manrope', sans-serif; font-weight:800;
+    font-size:clamp(34px, 6.4vw, 74px); line-height:1.04; letter-spacing:-0.02em;
+    margin:0 0 18px;
+    background:linear-gradient(180deg, #ffffff 0%, #cfcfd6 60%, #8f8f99 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.sub{
+    font-size:clamp(14px, 1.6vw, 17px); color:var(--silver-dim); max-width:520px; margin:0 auto 56px;
+    line-height:1.6;
+  }
+
+  /* THE CARD — signature element */
+  .stage{ perspective:1400px; margin-bottom:54px; }
+  .card{
+    width:min(88vw, 420px);
+    aspect-ratio:1.586/1;
+    border-radius:var(--radius);
+    position:relative;
+    transform-style:preserve-3d;
+    transition:transform .12s ease-out;
+    background:
+      linear-gradient(115deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 18%),
+      repeating-linear-gradient(100deg, #34343a 0px, #3d3d43 1px, #2a2a2e 2px, #38383e 3px),
+      linear-gradient(145deg, var(--metal-1), var(--metal-3) 55%, var(--metal-2));
+    box-shadow:
+      0 40px 80px -20px rgba(0,0,0,0.75),
+      0 8px 24px -8px rgba(0,0,0,0.6),
+      inset 0 1px 1px rgba(255,255,255,0.25),
+      inset 0 -1px 1px rgba(0,0,0,0.6);
+    border:1px solid rgba(255,255,255,0.08);
+  }
+  .card::before{
+    /* sweeping light sheen */
+    content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+    background:linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.16) 45%, rgba(255,255,255,0.02) 52%, transparent 65%);
+    background-size:220% 220%;
+    background-position:var(--sheen-x, 20%) var(--sheen-y, 20%);
+    mix-blend-mode:overlay;
+  }
+  .card::after{
+    content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
+  }
+  .card-inner{
+    position:absolute; inset:0; padding:6.5% 7.5%;
+    display:flex; flex-direction:column; justify-content:space-between;
+    transform:translateZ(24px);
+  }
+  .card-top{ display:flex; align-items:flex-start; justify-content:space-between; }
+  .card-logo{ width:19%; aspect-ratio:1/1; border-radius:50%; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,0.5); }
+  .card-logo img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .card-role{
+    font-family:'JetBrains Mono', monospace; font-size:clamp(8px,1.6vw,10px); letter-spacing:0.14em; text-transform:uppercase;
+    color:#c9c9d2; text-align:right; opacity:0.85;
+  }
+  .card-mid{ text-align:left; }
+  .card-brand{
+    font-family:'Manrope', sans-serif; font-weight:800; letter-spacing:-0.01em;
+    font-size:clamp(20px, 4.2vw, 30px);
+    background:linear-gradient(180deg, #ffffff, #a9a9b3);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    margin:0 0 4px;
+  }
+  .card-product{
+    font-family:'Inter', sans-serif; font-weight:500; font-size:clamp(10px,2vw,12.5px);
+    color:#b9b9c2; letter-spacing:0.01em;
+  }
+  .card-bottom{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    font-family:'JetBrains Mono', monospace; font-size:clamp(8px,1.7vw,10.5px); color:#c3c3cc; letter-spacing:0.03em;
+  }
+  .card-bottom .col{ display:flex; flex-direction:column; gap:3px; text-align:left; }
+  .card-bottom .col.right{ text-align:right; }
+  .card-bottom .label{ color:#77778a; font-size:0.85em; }
+
+  .hero-cta-row{ display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+  .btn{
+    font-family:'Manrope',sans-serif; font-weight:700; font-size:14.5px;
+    padding:15px 30px; border-radius:999px; text-decoration:none;
+    display:inline-flex; align-items:center; gap:9px;
+    transition:all .25s ease;
+  }
+  .btn-primary{
+    color:#0a0a0c;
+    background:linear-gradient(180deg,#f4e9ff,#d9b8ff 45%, #b34bf0);
+    box-shadow:0 10px 30px -8px var(--purple-glow);
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 16px 36px -8px var(--purple-glow); }
+  .btn-ghost{
+    color:var(--silver); border:1px solid var(--line);
+  }
+  .btn-ghost:hover{ border-color:rgba(255,255,255,0.3); }
+
+  /* DETAILS SECTION */
+  .details{
+    max-width:900px; margin:0 auto; padding:60px 6vw 120px;
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:18px; overflow:hidden;
+  }
+  .detail-item{
+    background:#0c0c0f; padding:30px 26px;
+  }
+  .detail-item .k{
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--purple); margin-bottom:10px;
+  }
+  .detail-item .v{
+    font-family:'Manrope',sans-serif; font-weight:600; font-size:16px; color:var(--silver);
+  }
+  .detail-item .v a{ text-decoration:none; }
+  .detail-item .v a:hover{ color:var(--purple); }
+
+  footer{
+    text-align:center; padding:40px 6vw 60px; color:var(--silver-dim);
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:0.04em;
+    border-top:1px solid var(--line);
+  }
+  footer .heart{ color:var(--purple); }
+
+  @media (prefers-reduced-motion: reduce){
+    .card{ transition:none; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<header class="nav">
+  <div class="brandmark">
+    <img src="logo.png" alt="AB Edits logo">
+    AB EDITS
+  </div>
+  <a class="nav-cta" href="https://instagram.com/u.n.i.q.u.e.1" target="_blank" rel="noopener">DM to order →</a>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="eyebrow">Digital Creator · Est. Birthday Web Pack</div>
+    <h1>Premium edits,<br>designed to be remembered.</h1>
+    <p class="sub">AB Edits crafts high-end digital birthday experiences — clean, elegant, and built to make someone feel seen.</p>
+
+    <div class="stage">
+      <div class="card" id="card">
+        <div class="card-inner">
+          <div class="card-top">
+            <div class="card-logo"><img src="logo.png" alt="AB Edits"></div>
+            <div class="card-role">Digital<br>Creator</div>
+          </div>
+          <div class="card-mid">
+            <p class="card-brand">AB EDITS</p>
+            <p class="card-product">Birthday Web Pack</p>
+          </div>
+          <div class="card-bottom">
+            <div class="col">
+              <span class="label">Instagram</span>
+              <span>@u.n.i.q.u.e.1</span>
+            </div>
+            <div class="col right">
+              <span class="label">Email</span>
+              <span>abwithedits01@gmail.com</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-cta-row">
+      <a class="btn btn-primary" href="https://instagram.com/u.n.i.q.u.e.1" target="_blank" rel="noopener">For Order, DM Now 💌</a>
+      <a class="btn btn-ghost" href="mailto:abwithedits01@gmail.com">Email instead</a>
+    </div>
+  </section>
+
+  <section class="details">
+    <div class="detail-item">
+      <div class="k">Founder &amp; Creator</div>
+      <div class="v">AB Edits</div>
+    </div>
+    <div class="detail-item">
+      <div class="k">Product</div>
+      <div class="v">Birthday Web Pack</div>
+    </div>
+    <div class="detail-item">
+      <div class="k">Instagram</div>
+      <div class="v"><a href="https://instagram.com/u.n.i.q.u.e.1" target="_blank" rel="noopener">@u.n.i.q.u.e.1</a></div>
+    </div>
+    <div class="detail-item">
+      <div class="k">Role</div>
+      <div class="v">Digital Creator</div>
+    </div>
+    <div class="detail-item">
+      <div class="k">Email</div>
+      <div class="v"><a href="mailto:abwithedits01@gmail.com">abwithedits01@gmail.com</a></div>
+    </div>
+    <div class="detail-item">
+      <div class="k">Tags</div>
+      <div class="v" style="font-weight:400; font-size:14px; color:var(--silver-dim);">#birthday #coding #gift #html #viralposts</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  AB EDITS — We design your memories <span class="heart">♥</span> · © 2026
+</footer>
+
+<script>
+  // Subtle 3D tilt + light sheen tracking on the card — the page's signature interaction.
+  const card = document.getElementById('card');
+  const stage = card.parentElement;
+  const maxTilt = 10;
+
+  function handleMove(x, y){
+    const rect = stage.getBoundingClientRect();
+    const px = (x - rect.left) / rect.width;
+    const py = (y - rect.top) / rect.height;
+    const rotY = (px - 0.5) * maxTilt * 2;
+    const rotX = (0.5 - py) * maxTilt * 2;
+    card.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    card.style.setProperty('--sheen-x', `${px*100}%`);
+    card.style.setProperty('--sheen-y', `${py*100}%`);
+  }
+  function reset(){
+    card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+  }
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduceMotion){
+    stage.addEventListener('mousemove', e => handleMove(e.clientX, e.clientY));
+    stage.addEventListener('mouseleave', reset);
+    stage.addEventListener('touchmove', e => {
+      const t = e.touches[0];
+      handleMove(t.clientX, t.clientY);
+    }, {passive:true});
+    stage.addEventListener('touchend', reset);
+  }
+</script>
+</body>
+</html>
