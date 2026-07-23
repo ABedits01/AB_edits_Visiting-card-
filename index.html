@@ -196,6 +196,256 @@
     .card{ transition:none; }
     html{ scroll-behavior:auto; }
   }
+
+  /* ==========================================================
+     PRICE TABLE — new section
+     ========================================================== */
+  .pricing{
+    max-width:900px; margin:0 auto; padding:20px 6vw 100px;
+  }
+  .pricing .section-head{ text-align:center; margin-bottom:40px; }
+  .pricing .section-head .eyebrow{ margin-bottom:12px; }
+  .pricing .section-head h2{
+    font-family:'Manrope', sans-serif; font-weight:800; font-size:clamp(24px,4vw,36px);
+    margin:0; letter-spacing:-0.01em;
+    background:linear-gradient(180deg, #ffffff 0%, #b9b9c2 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .price-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:22px;
+  }
+  .price-card{
+    position:relative; border-radius:20px; padding:34px 28px;
+    background:linear-gradient(160deg, #131316, #0b0b0d 65%);
+    border:1px solid var(--line);
+    transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+    overflow:hidden;
+  }
+  .price-card::before{
+    content:""; position:absolute; inset:0; opacity:0; transition:opacity .3s ease;
+    background:radial-gradient(120% 100% at 50% 0%, var(--purple-glow), transparent 60%);
+    pointer-events:none;
+  }
+  .price-card:hover{ transform:translateY(-6px); border-color:rgba(179,75,240,0.4); box-shadow:0 20px 50px -20px rgba(0,0,0,0.7); }
+  .price-card:hover::before{ opacity:1; }
+  .price-card.featured{ border-color:rgba(179,75,240,0.55); }
+  .price-tag{
+    position:absolute; top:18px; right:18px;
+    font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase;
+    background:linear-gradient(180deg,#f4e9ff,#b34bf0); color:#0a0a0c; padding:5px 12px; border-radius:999px; font-weight:700;
+  }
+  .price-name{ font-family:'Manrope',sans-serif; font-weight:700; font-size:17px; margin:0 0 6px; position:relative; }
+  .price-desc{ font-size:13px; color:var(--silver-dim); margin:0 0 22px; position:relative; }
+  .price-amount{ position:relative; display:flex; align-items:baseline; gap:6px; margin-bottom:24px; }
+  .price-amount .currency{ font-family:'Manrope',sans-serif; font-weight:700; font-size:20px; color:var(--silver-dim); }
+  .price-amount .num{
+    font-family:'Manrope',sans-serif; font-weight:800; font-size:44px; letter-spacing:-0.02em;
+    background:linear-gradient(180deg,#ffffff,#c9c9d2); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .price-amount .per{ font-size:13px; color:var(--silver-dim); }
+  .price-list{ list-style:none; padding:0; margin:0 0 26px; display:flex; flex-direction:column; gap:11px; position:relative; }
+  .price-list li{ font-size:13.5px; color:#c9c9d2; display:flex; align-items:center; gap:9px; }
+  .price-list li .tick{ color:var(--purple); font-weight:700; }
+  .price-btn{
+    position:relative; display:block; text-align:center; width:100%;
+    font-family:'Manrope',sans-serif; font-weight:700; font-size:14px;
+    padding:13px 20px; border-radius:999px; text-decoration:none;
+    border:1px solid var(--line); color:var(--silver); transition:all .25s ease;
+  }
+  .price-card.featured .price-btn{
+    color:#0a0a0c; border:none;
+    background:linear-gradient(180deg,#f4e9ff,#d9b8ff 45%, #b34bf0);
+  }
+  .price-btn:hover{ border-color:rgba(255,255,255,0.3); }
+  .price-card.featured .price-btn:hover{ transform:translateY(-2px); box-shadow:0 10px 26px -8px var(--purple-glow); }
+
+  /* ==========================================================
+     GALLERY — Birthday Pack Demo Gallery
+     ========================================================== */
+  .gallery-section{
+    max-width:1100px; margin:0 auto; padding:20px 6vw 100px;
+    user-select:none; -webkit-user-select:none; -ms-user-select:none;
+  }
+  .gallery-section img,
+  .gallery-section video{
+    -webkit-user-drag:none; user-drag:none;
+    pointer-events:auto;
+  }
+  .gallery-filters{
+    display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:34px;
+  }
+  .filter-btn{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:0.08em; text-transform:uppercase;
+    padding:9px 20px; border-radius:999px; border:1px solid var(--line); background:transparent;
+    color:var(--silver-dim); cursor:pointer; transition:all .25s ease;
+  }
+  .filter-btn:hover{ color:var(--silver); border-color:rgba(255,255,255,0.25); }
+  .filter-btn.active{
+    color:#0a0a0c; border-color:transparent;
+    background:linear-gradient(180deg,#f4e9ff,#d9b8ff 45%, #b34bf0);
+  }
+
+  .gallery-grid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:20px;
+  }
+  .gallery-card{
+    position:relative; border-radius:16px; overflow:hidden; aspect-ratio:4/5;
+    background:#0e0e11; border:1px solid var(--line); cursor:pointer;
+    transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+  }
+  .gallery-card:hover{ transform:translateY(-5px) scale(1.015); box-shadow:0 24px 50px -18px rgba(0,0,0,0.7); border-color:rgba(179,75,240,0.35); }
+  .gallery-card .thumb-wrap{ position:absolute; inset:0; overflow:hidden; }
+  .gallery-card img,
+  .gallery-card video.thumb-video{
+    width:100%; height:100%; object-fit:cover; display:block;
+    transition:transform .5s ease, filter .3s ease;
+    pointer-events:none; /* blocks drag/save interactions on the thumbnail itself */
+  }
+  .gallery-card:hover img,
+  .gallery-card:hover video.thumb-video{ transform:scale(1.08); }
+
+  /* transparent tiled watermark overlay, always on top of media */
+  .gallery-card .watermark-overlay{
+    position:absolute; inset:0; pointer-events:none; z-index:3;
+    display:flex; flex-wrap:wrap; align-content:space-around; justify-content:space-around;
+    transform:rotate(-28deg) scale(1.4);
+    opacity:0.16;
+  }
+  .gallery-card .watermark-overlay span{
+    font-family:'Manrope',sans-serif; font-weight:700; font-size:11px; letter-spacing:0.05em;
+    color:#fff; white-space:nowrap; margin:14px 20px;
+  }
+
+  .gallery-card .card-shade{
+    position:absolute; inset:0; z-index:2;
+    background:linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.15) 45%, transparent 65%);
+  }
+  .gallery-card .card-caption{
+    position:absolute; left:14px; right:14px; bottom:12px; z-index:4;
+    font-family:'Manrope',sans-serif; font-weight:600; font-size:13px; color:#fff;
+  }
+  .gallery-card .type-badge{
+    position:absolute; top:12px; left:12px; z-index:4;
+    font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase;
+    background:rgba(0,0,0,0.55); backdrop-filter:blur(6px);
+    padding:4px 9px; border-radius:999px; color:#e6d6ff; border:1px solid rgba(255,255,255,0.15);
+  }
+  .gallery-card .play-badge{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:4;
+    width:52px; height:52px; border-radius:50%;
+    background:rgba(255,255,255,0.14); backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,0.35);
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .3s ease, background .3s ease;
+  }
+  .gallery-card:hover .play-badge{ transform:translate(-50%,-50%) scale(1.1); background:rgba(179,75,240,0.4); }
+  .gallery-card .play-badge svg{ width:18px; height:18px; fill:#fff; margin-left:2px; }
+
+  /* skeleton loading shimmer for gallery cards before media is ready */
+  .gallery-card.loading .thumb-wrap{
+    background:linear-gradient(100deg, #101013 30%, #1c1c21 50%, #101013 70%);
+    background-size:220% 100%;
+    animation:shimmer 1.4s infinite linear;
+  }
+  @keyframes shimmer{
+    0%{ background-position:120% 0; }
+    100%{ background-position:-20% 0; }
+  }
+  .gallery-card.loading img,
+  .gallery-card.loading video.thumb-video{ opacity:0; }
+  .gallery-card img,
+  .gallery-card video.thumb-video{ opacity:1; transition:opacity .4s ease, transform .5s ease, filter .3s ease; }
+
+  /* blur-on-focus-loss / devtools / printscreen protection */
+  .gallery-grid.protected-blur img,
+  .gallery-grid.protected-blur video.thumb-video{
+    filter:blur(22px) brightness(0.6);
+  }
+
+  .gallery-empty{ text-align:center; color:var(--silver-dim); font-size:14px; padding:40px 0; display:none; }
+
+  /* ---------- Lightbox (images) ---------- */
+  .lightbox{
+    position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center;
+    background:rgba(4,4,6,0.92); backdrop-filter:blur(10px);
+    opacity:0; pointer-events:none; transition:opacity .3s ease;
+    user-select:none; -webkit-user-select:none;
+  }
+  .lightbox.open{ opacity:1; pointer-events:auto; }
+  .lightbox-stage{
+    position:relative; max-width:90vw; max-height:82vh;
+    transform:scale(0.92); transition:transform .35s cubic-bezier(.2,.8,.2,1);
+  }
+  .lightbox.open .lightbox-stage{ transform:scale(1); }
+  .lightbox-stage img{
+    max-width:90vw; max-height:82vh; display:block; border-radius:14px;
+    box-shadow:0 30px 80px -20px rgba(0,0,0,0.8);
+    pointer-events:none; /* prevent drag/save on the full image */
+  }
+  .lightbox-watermark{
+    position:absolute; inset:0; pointer-events:none; z-index:2; border-radius:14px; overflow:hidden;
+    display:flex; flex-wrap:wrap; align-content:space-around; justify-content:space-around;
+    transform:rotate(-28deg) scale(1.5); opacity:0.14;
+  }
+  .lightbox-watermark span{
+    font-family:'Manrope',sans-serif; font-weight:700; font-size:13px; color:#fff; white-space:nowrap; margin:18px 26px;
+  }
+  .lightbox-caption{
+    text-align:center; margin-top:16px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--silver-dim); letter-spacing:0.04em;
+  }
+  .lightbox-close{
+    position:absolute; top:-46px; right:0; width:38px; height:38px; border-radius:50%;
+    border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.06); color:#fff;
+    font-size:18px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    transition:all .25s ease;
+  }
+  .lightbox-close:hover{ background:rgba(179,75,240,0.4); border-color:var(--purple); transform:rotate(90deg); }
+  .lightbox-nav{
+    position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px; border-radius:50%;
+    border:1px solid rgba(255,255,255,0.2); background:rgba(0,0,0,0.4); color:#fff; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; font-size:18px; transition:all .25s ease;
+  }
+  .lightbox-nav:hover{ background:rgba(179,75,240,0.4); border-color:var(--purple); }
+  .lightbox-nav.prev{ left:-60px; }
+  .lightbox-nav.next{ right:-60px; }
+  @media (max-width:760px){
+    .lightbox-nav.prev{ left:6px; }
+    .lightbox-nav.next{ right:6px; }
+  }
+
+  /* ---------- Video modal ---------- */
+  .video-modal{
+    position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center;
+    background:rgba(4,4,6,0.92); backdrop-filter:blur(10px);
+    opacity:0; pointer-events:none; transition:opacity .3s ease; padding:20px;
+  }
+  .video-modal.open{ opacity:1; pointer-events:auto; }
+  .video-modal-stage{
+    position:relative; width:min(860px,92vw);
+    border-radius:18px; overflow:hidden; background:#000;
+    border:1px solid var(--line); box-shadow:0 30px 80px -20px rgba(0,0,0,0.8);
+    transform:scale(0.92) translateY(10px); transition:transform .35s cubic-bezier(.2,.8,.2,1);
+  }
+  .video-modal.open .video-modal-stage{ transform:scale(1) translateY(0); }
+  .video-modal-stage video{ width:100%; max-height:78vh; display:block; background:#000; }
+  .video-modal-close{
+    position:absolute; top:12px; right:12px; z-index:5; width:36px; height:36px; border-radius:50%;
+    border:1px solid rgba(255,255,255,0.25); background:rgba(0,0,0,0.55); backdrop-filter:blur(6px); color:#fff;
+    font-size:17px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .25s ease;
+  }
+  .video-modal-close:hover{ background:rgba(179,75,240,0.5); transform:rotate(90deg); }
+
+  /* ---------- Screenshot / devtools warning overlay ---------- */
+  .protect-warning{
+    position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center;
+    background:rgba(4,4,6,0.94); opacity:0; pointer-events:none; transition:opacity .25s ease;
+    text-align:center; padding:20px;
+  }
+  .protect-warning.show{ opacity:1; pointer-events:auto; }
+  .protect-warning p{
+    font-family:'Manrope',sans-serif; font-weight:700; font-size:clamp(16px,3vw,22px); color:#fff; max-width:420px;
+  }
+  .protect-warning span{ display:block; margin-top:8px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--silver-dim); font-weight:400; }
 </style>
 </head>
 <body>
@@ -245,6 +495,103 @@
       <a class="btn btn-ghost" href="mailto:abwithedits01@gmail.com">Email instead</a>
     </div>
   </section>
+
+  <!-- ==========================================================
+       PRICE TABLE
+       ========================================================== -->
+  <section class="pricing" id="pricing">
+    <div class="section-head">
+      <div class="eyebrow">Pricing</div>
+      <h2>Choose your Birthday Web Pack</h2>
+    </div>
+    <div class="price-grid">
+      <div class="price-card">
+        <p class="price-name">Watermark Pack</p>
+        <p class="price-desc">Great for trying it out before you upgrade.</p>
+        <div class="price-amount">
+          <span class="currency">₹</span><span class="num">49</span><span class="per">/ pack</span>
+        </div>
+        <ul class="price-list">
+          <li><span class="tick">✓</span> Full Birthday Web Pack</li>
+          <li><span class="tick">✓</span> All animated sections</li>
+          <li><span class="tick">✓</span> "AB edits" watermark included</li>
+          <li><span class="tick">✓</span> Delivered within 24 hrs</li>
+        </ul>
+        <a class="price-btn" href="https://instagram.com/u.n.i.q.u.e.1" target="_blank" rel="noopener">DM to order</a>
+      </div>
+
+      <div class="price-card featured">
+        <span class="price-tag">Most loved</span>
+        <p class="price-name">Without Watermark Pack</p>
+        <p class="price-desc">The clean, fully-branded experience.</p>
+        <div class="price-amount">
+          <span class="currency">₹</span><span class="num">99</span><span class="per">/ pack</span>
+        </div>
+        <ul class="price-list">
+          <li><span class="tick">✓</span> Full Birthday Web Pack</li>
+          <li><span class="tick">✓</span> All animated sections</li>
+          <li><span class="tick">✓</span> No watermark — 100% clean</li>
+          <li><span class="tick">✓</span> Priority delivery</li>
+        </ul>
+        <a class="price-btn" href="https://instagram.com/u.n.i.q.u.e.1" target="_blank" rel="noopener">DM to order</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       BIRTHDAY PACK DEMO GALLERY
+       To add your own demo images/videos: drop files into
+       /assets/gallery/images or /assets/gallery/videos and add
+       one line to the `galleryItems` array near the bottom of
+       this file. That's the only place you need to edit.
+       ========================================================== -->
+  <section class="gallery-section" id="gallery">
+    <div class="section-head">
+      <div class="eyebrow">Preview</div>
+      <h2>Birthday Pack Demo Gallery</h2>
+    </div>
+
+    <div class="gallery-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="image">Images</button>
+      <button class="filter-btn" data-filter="video">Videos</button>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid"><!-- cards injected by JS from galleryItems --></div>
+    <p class="gallery-empty" id="galleryEmpty">No videos added yet — drop some into /assets/gallery/videos.</p>
+  </section>
+
+  <!-- Lightbox for images -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-stage">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
+      <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Previous">‹</button>
+      <button class="lightbox-nav next" id="lightboxNext" aria-label="Next">›</button>
+      <img id="lightboxImg" src="" alt="" draggable="false">
+      <div class="lightbox-watermark" id="lightboxWatermark"></div>
+    </div>
+    <p class="lightbox-caption" id="lightboxCaption"></p>
+  </div>
+
+  <!-- Popup modal for videos -->
+  <div class="video-modal" id="videoModal">
+    <div class="video-modal-stage">
+      <button class="video-modal-close" id="videoModalClose" aria-label="Close">✕</button>
+      <video id="videoModalPlayer" playsinline
+             controls
+             controlsList="nodownload noremoteplayback"
+             disablePictureInPicture
+             disableRemotePlayback
+             oncontextmenu="return false;"></video>
+    </div>
+  </div>
+
+  <!-- Screenshot / devtools warning overlay -->
+  <div class="protect-warning" id="protectWarning">
+    <p>Screenshots are not allowed.
+      <span>This gallery is protected demo content · AB Edits</span>
+    </p>
+  </div>
 
   <section class="details">
     <div class="detail-item">
@@ -308,6 +655,341 @@
     }, {passive:true});
     stage.addEventListener('touchend', reset);
   }
+</script>
+
+<script>
+/* ============================================================
+   BIRTHDAY PACK DEMO GALLERY
+   Everything gallery-related lives in this one script block.
+   ============================================================ */
+
+/* ---------------------------------------------------------
+   1) DATA — the only place you need to touch to add media.
+      type: "image" | "video"
+      src:  path to the file in /assets/gallery/...
+      thumb: path to a thumbnail/poster image (for video, use a
+             still frame or the same video file — browsers show
+             the first frame automatically if no poster is set)
+      title: short caption shown on hover
+   --------------------------------------------------------- */
+const galleryItems = [
+  { type: 'image', src: 'assets/gallery/images/demo-1.jpg', title: 'Happy Birthday Landing' },
+  { type: 'image', src: 'assets/gallery/images/demo-2.jpg', title: 'A Special Gift Intro' },
+  { type: 'image', src: 'assets/gallery/images/demo-3.jpg', title: 'For You — Message Card' },
+  { type: 'image', src: 'assets/gallery/images/demo-4.jpg', title: 'Tap-to-Open Envelope' },
+  { type: 'image', src: 'assets/gallery/images/demo-5.jpg', title: 'Always & Forever Finale' },
+  // Example video entry — uncomment and update the path once you add a demo video file:
+  // { type: 'video', src: 'assets/gallery/videos/demo-1.mp4', thumb: 'assets/gallery/videos/demo-1-poster.jpg', title: 'Full Pack Walkthrough' },
+];
+
+const WATERMARK_TEXT = 'AB edits · Demo Only';
+
+const galleryGrid   = document.getElementById('galleryGrid');
+const galleryEmpty  = document.getElementById('galleryEmpty');
+const filterBtns    = document.querySelectorAll('.filter-btn');
+
+/* Build a small repeated watermark node (used on cards + lightbox) */
+function buildWatermark(){
+  const wrap = document.createElement('div');
+  wrap.className = 'watermark-overlay';
+  for(let i=0;i<12;i++){
+    const span = document.createElement('span');
+    span.textContent = WATERMARK_TEXT;
+    wrap.appendChild(span);
+  }
+  return wrap;
+}
+
+/* Render gallery cards from galleryItems */
+function renderGallery(filter){
+  galleryGrid.innerHTML = '';
+  const items = galleryItems.filter(it => filter === 'all' ? true : it.type === filter);
+
+  if(items.length === 0){
+    galleryEmpty.style.display = 'block';
+    return;
+  }
+  galleryEmpty.style.display = 'none';
+
+  items.forEach((item, index) => {
+    const card = document.createElement('div');
+    card.className = 'gallery-card loading';
+    card.dataset.index = galleryItems.indexOf(item);
+
+    const thumbWrap = document.createElement('div');
+    thumbWrap.className = 'thumb-wrap';
+
+    let mediaEl;
+    if(item.type === 'image'){
+      mediaEl = document.createElement('img');
+      mediaEl.src = item.src;
+      mediaEl.alt = item.title || 'Demo image';
+      mediaEl.loading = 'lazy';           // native lazy loading
+      mediaEl.draggable = false;          // disable dragging
+      mediaEl.oncontextmenu = () => false; // disable right-click save on the element itself
+      mediaEl.addEventListener('load', () => card.classList.remove('loading'));
+    } else {
+      mediaEl = document.createElement('video');
+      mediaEl.className = 'thumb-video';
+      mediaEl.src = item.thumb || item.src;
+      mediaEl.muted = true;
+      mediaEl.preload = 'metadata';
+      mediaEl.setAttribute('playsinline', '');
+      mediaEl.oncontextmenu = () => false;
+      mediaEl.addEventListener('loadeddata', () => card.classList.remove('loading'));
+    }
+    thumbWrap.appendChild(mediaEl);
+    card.appendChild(thumbWrap);
+
+    // shading for caption legibility
+    const shade = document.createElement('div');
+    shade.className = 'card-shade';
+    card.appendChild(shade);
+
+    // watermark
+    card.appendChild(buildWatermark());
+
+    // type badge
+    const badge = document.createElement('span');
+    badge.className = 'type-badge';
+    badge.textContent = item.type === 'video' ? '▶ Video' : 'Image';
+    card.appendChild(badge);
+
+    // play icon for videos
+    if(item.type === 'video'){
+      const play = document.createElement('div');
+      play.className = 'play-badge';
+      play.innerHTML = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+      card.appendChild(play);
+    }
+
+    // caption
+    if(item.title){
+      const cap = document.createElement('div');
+      cap.className = 'card-caption';
+      cap.textContent = item.title;
+      card.appendChild(cap);
+    }
+
+    card.addEventListener('click', () => {
+      const realIndex = galleryItems.indexOf(item);
+      if(item.type === 'image'){ openLightbox(realIndex); }
+      else{ openVideoModal(item); }
+    });
+
+    galleryGrid.appendChild(card);
+  });
+}
+
+/* Filter button handling */
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderGallery(btn.dataset.filter);
+  });
+});
+
+renderGallery('all');
+
+/* ---------------------------------------------------------
+   2) LIGHTBOX (images)
+   --------------------------------------------------------- */
+const lightbox        = document.getElementById('lightbox');
+const lightboxImg      = document.getElementById('lightboxImg');
+const lightboxCaption   = document.getElementById('lightboxCaption');
+const lightboxWatermark = document.getElementById('lightboxWatermark');
+const lightboxClose     = document.getElementById('lightboxClose');
+const lightboxPrev      = document.getElementById('lightboxPrev');
+const lightboxNext      = document.getElementById('lightboxNext');
+
+let currentImageIndex = null;
+
+function imageIndices(){
+  return galleryItems.map((it,i) => it.type === 'image' ? i : null).filter(i => i !== null);
+}
+
+function openLightbox(index){
+  currentImageIndex = index;
+  const item = galleryItems[index];
+  lightboxImg.src = item.src;
+  lightboxImg.alt = item.title || 'Demo image';
+  lightboxCaption.textContent = item.title || '';
+  lightboxWatermark.innerHTML = '';
+  lightboxWatermark.appendChild(buildWatermark());
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(){
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function stepLightbox(dir){
+  const imgs = imageIndices();
+  const pos = imgs.indexOf(currentImageIndex);
+  const nextPos = (pos + dir + imgs.length) % imgs.length;
+  openLightbox(imgs[nextPos]);
+}
+
+lightboxClose.addEventListener('click', closeLightbox);
+lightboxPrev.addEventListener('click', () => stepLightbox(-1));
+lightboxNext.addEventListener('click', () => stepLightbox(1));
+lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => {
+  if(!lightbox.classList.contains('open')) return;
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowLeft') stepLightbox(-1);
+  if(e.key === 'ArrowRight') stepLightbox(1);
+});
+
+/* ---------------------------------------------------------
+   3) VIDEO MODAL
+   --------------------------------------------------------- */
+const videoModal       = document.getElementById('videoModal');
+const videoModalPlayer  = document.getElementById('videoModalPlayer');
+const videoModalClose   = document.getElementById('videoModalClose');
+
+function openVideoModal(item){
+  videoModalPlayer.src = item.src;
+  videoModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  videoModalPlayer.play().catch(() => {}); // autoplay may be blocked, that's fine
+}
+function closeVideoModal(){
+  videoModalPlayer.pause();
+  videoModalPlayer.removeAttribute('src');
+  videoModalPlayer.load();
+  videoModal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+videoModalClose.addEventListener('click', closeVideoModal);
+videoModal.addEventListener('click', (e) => { if(e.target === videoModal) closeVideoModal(); });
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape' && videoModal.classList.contains('open')) closeVideoModal();
+});
+
+/* ============================================================
+   PROTECTION LAYER
+   Note: no website can fully block screenshots or screen
+   recording — the OS ultimately controls that. Everything below
+   is best-effort, browser-side deterrence only.
+   ============================================================ */
+
+const protectWarning = document.getElementById('protectWarning');
+const gallerySection = document.getElementById('gallery');
+
+function flashWarning(ms = 1600){
+  protectWarning.classList.add('show');
+  gallerySection.style.filter = 'blur(18px)';
+  setTimeout(() => {
+    protectWarning.classList.remove('show');
+    gallerySection.style.filter = '';
+  }, ms);
+}
+
+/* Right-click disabled ONLY inside the gallery + lightbox + video modal */
+[gallerySection, lightbox, videoModal].forEach(el => {
+  el.addEventListener('contextmenu', e => e.preventDefault());
+});
+
+/* Disable dragging of any media inside the gallery/lightbox/modal */
+[gallerySection, lightbox, videoModal].forEach(el => {
+  el.addEventListener('dragstart', e => e.preventDefault());
+});
+
+/* Disable long-press "save image" on mobile (touch-and-hold triggers
+   a context menu on many mobile browsers the same way right-click does) */
+[gallerySection, lightbox].forEach(el => {
+  let pressTimer;
+  el.addEventListener('touchstart', () => {
+    pressTimer = setTimeout(() => { /* swallow long-press */ }, 500);
+  }, {passive:true});
+  el.addEventListener('touchend', () => clearTimeout(pressTimer));
+  el.addEventListener('touchmove', () => clearTimeout(pressTimer));
+});
+
+/* Global keyboard shortcut blocking: Ctrl+S, Ctrl+U, Ctrl+Shift+I, F12 */
+document.addEventListener('keydown', (e) => {
+  const key = e.key ? e.key.toLowerCase() : '';
+  const blockCombo =
+    (e.ctrlKey && key === 's') ||                       // Save page
+    (e.ctrlKey && key === 'u') ||                        // View source
+    (e.ctrlKey && e.shiftKey && key === 'i') ||           // DevTools
+    (e.ctrlKey && e.shiftKey && key === 'j') ||           // DevTools console
+    (key === 'f12');                                      // DevTools
+
+  if(blockCombo){
+    e.preventDefault();
+    flashWarning(900);
+  }
+
+  /* Best-effort PrintScreen detection (fires on keyup on most browsers,
+     included here too since some fire on keydown) */
+  if(key === 'printscreen'){
+    handlePrintScreen();
+  }
+});
+
+document.addEventListener('keyup', (e) => {
+  if(e.key && e.key.toLowerCase() === 'printscreen'){
+    handlePrintScreen();
+  }
+});
+
+function handlePrintScreen(){
+  // Can't block the OS screenshot itself — this just reacts after the fact:
+  // blur the gallery briefly and surface a warning so repeated attempts
+  // are visibly discouraged.
+  flashWarning(1800);
+  // Best-effort: briefly clear the clipboard image if the browser allows it.
+  navigator.clipboard?.writeText('').catch(() => {});
+}
+
+/* Blur gallery media when the tab loses focus (screenshot/recording deterrent) */
+document.addEventListener('visibilitychange', () => {
+  if(document.hidden){
+    galleryGrid.classList.add('protected-blur');
+  } else {
+    galleryGrid.classList.remove('protected-blur');
+  }
+});
+window.addEventListener('blur', () => galleryGrid.classList.add('protected-blur'));
+window.addEventListener('focus', () => galleryGrid.classList.remove('protected-blur'));
+
+/* Best-effort DevTools detection via window size delta.
+   Not foolproof (docked/undocked panels vary), but catches the common case. */
+let devtoolsOpen = false;
+setInterval(() => {
+  const widthDiff  = window.outerWidth  - window.innerWidth;
+  const heightDiff = window.outerHeight - window.innerHeight;
+  const threshold = 160;
+  const isOpen = widthDiff > threshold || heightDiff > threshold;
+
+  if(isOpen && !devtoolsOpen){
+    devtoolsOpen = true;
+    galleryGrid.classList.add('protected-blur');
+    flashWarning(2000);
+  } else if(!isOpen && devtoolsOpen){
+    devtoolsOpen = false;
+    galleryGrid.classList.remove('protected-blur');
+  }
+}, 1000);
+
+/* Best-effort "screen recording suspected" heuristic:
+   there is no reliable web API to detect screen recording. As a
+   light deterrent, we re-apply the blur whenever the page's
+   visibility/focus state looks abnormal (covers most casual
+   recording-via-tab-share scenarios triggered by browser prompts). */
+if(navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia){
+  const originalGetDisplayMedia = navigator.mediaDevices.getDisplayMedia.bind(navigator.mediaDevices);
+  navigator.mediaDevices.getDisplayMedia = function(...args){
+    galleryGrid.classList.add('protected-blur');
+    flashWarning(2000);
+    return originalGetDisplayMedia(...args);
+  };
+}
 </script>
 </body>
 </html>
