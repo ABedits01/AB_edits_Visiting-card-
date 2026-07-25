@@ -673,11 +673,11 @@
       title: short caption shown on hover
    --------------------------------------------------------- */
 const galleryItems = [
-  { type: 'image', src: 'demo-1.jpg', title: 'Happy Birthday Landing' },
-  { type: 'image', src:  'demo-2.jpg', title: 'A Special Gift Intro' },
-  { type: 'image', src: 'demo-3.jpg', title: 'For You — Message Card' },
-  { type: 'image', src: 'demo-4.jpg', title: 'Tap-to-Open Envelope' },
-  { type: 'image', src: 'demo-5.jpg', title: 'Always & Forever Finale' },
+  { type: 'image', src: 'assets/gallery/images/demo-1.jpg', title: 'Happy Birthday Landing' },
+  { type: 'image', src: 'assets/gallery/images/demo-2.jpg', title: 'A Special Gift Intro' },
+  { type: 'image', src: 'assets/gallery/images/demo-3.jpg', title: 'For You — Message Card' },
+  { type: 'image', src: 'assets/gallery/images/demo-4.jpg', title: 'Tap-to-Open Envelope' },
+  { type: 'image', src: 'assets/gallery/images/demo-5.jpg', title: 'Always & Forever Finale' },
   // Example video entry — uncomment and update the path once you add a demo video file:
   // { type: 'video', src: 'assets/gallery/videos/demo-1.mp4', thumb: 'assets/gallery/videos/demo-1-poster.jpg', title: 'Full Pack Walkthrough' },
 ];
@@ -722,21 +722,43 @@ function renderGallery(filter){
     let mediaEl;
     if(item.type === 'image'){
       mediaEl = document.createElement('img');
-      mediaEl.src = item.src;
       mediaEl.alt = item.title || 'Demo image';
       mediaEl.loading = 'lazy';           // native lazy loading
       mediaEl.draggable = false;          // disable dragging
       mediaEl.oncontextmenu = () => false; // disable right-click save on the element itself
-      mediaEl.addEventListener('load', () => card.classList.remove('loading'));
+
+      const reveal = () => card.classList.remove('loading');
+      mediaEl.addEventListener('load', reveal);
+      mediaEl.addEventListener('error', () => {
+        // File missing / wrong path / wrong case — show it instead of hiding it silently.
+        reveal();
+        card.classList.add('broken');
+        thumbWrap.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#e08a8a;font-family:'JetBrains Mono',monospace;font-size:11px;text-align:center;padding:12px;">
+          ⚠ Could not load<br>${item.src}
+        </div>`;
+      });
+
+      mediaEl.src = item.src;             // set src AFTER listeners are attached
+      if(mediaEl.complete && mediaEl.naturalWidth > 0) reveal(); // already cached — fire immediately
     } else {
       mediaEl = document.createElement('video');
       mediaEl.className = 'thumb-video';
-      mediaEl.src = item.thumb || item.src;
       mediaEl.muted = true;
       mediaEl.preload = 'metadata';
       mediaEl.setAttribute('playsinline', '');
       mediaEl.oncontextmenu = () => false;
-      mediaEl.addEventListener('loadeddata', () => card.classList.remove('loading'));
+
+      const reveal = () => card.classList.remove('loading');
+      mediaEl.addEventListener('loadeddata', reveal);
+      mediaEl.addEventListener('error', () => {
+        reveal();
+        card.classList.add('broken');
+        thumbWrap.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#e08a8a;font-family:'JetBrains Mono',monospace;font-size:11px;text-align:center;padding:12px;">
+          ⚠ Could not load<br>${item.thumb || item.src}
+        </div>`;
+      });
+
+      mediaEl.src = item.thumb || item.src;
     }
     thumbWrap.appendChild(mediaEl);
     card.appendChild(thumbWrap);
@@ -770,6 +792,10 @@ function renderGallery(filter){
       cap.textContent = item.title;
       card.appendChild(cap);
     }
+
+    // Safety net: if load/error somehow never fire (e.g. slow CDN edge case),
+    // stop showing the skeleton after 4s so the card isn't stuck hidden forever.
+    setTimeout(() => card.classList.remove('loading'), 4000);
 
     card.addEventListener('click', () => {
       const realIndex = galleryItems.indexOf(item);
