@@ -540,10 +540,11 @@
 
   <!-- ==========================================================
        BIRTHDAY PACK DEMO GALLERY
-       To add your own demo images/videos: drop files into
-       /assets/gallery/images or /assets/gallery/videos and add
-       one line to the `galleryItems` array near the bottom of
-       this file. That's the only place you need to edit.
+       To add your own demo images/videos: upload the file into the
+       SAME folder as index.html (repo root) and add one line to the
+       `galleryItems` array near the bottom of this file — just the
+       filename, no subfolders needed. That's the only place you
+       need to edit.
        ========================================================== -->
   <section class="gallery-section" id="gallery">
     <div class="section-head">
@@ -558,7 +559,7 @@
     </div>
 
     <div class="gallery-grid" id="galleryGrid"><!-- cards injected by JS from galleryItems --></div>
-    <p class="gallery-empty" id="galleryEmpty">No videos added yet — drop some into /assets/gallery/videos.</p>
+    <p class="gallery-empty" id="galleryEmpty">No videos added yet — upload a video file next to index.html and add it to galleryItems.</p>
   </section>
 
   <!-- Lightbox for images -->
@@ -666,8 +667,11 @@
 /* ---------------------------------------------------------
    1) DATA — the only place you need to touch to add media.
       type: "image" | "video"
-      src:  path to the file in /assets/gallery/...
-      thumb: path to a thumbnail/poster image (for video, use a
+      src:  the filename only — every media file lives in the SAME
+            folder as index.html, so no subfolders are needed at all.
+            This makes it easy to add files via GitHub's mobile
+            "Add file" uploader, which can't create nested folders.
+      thumb: filename of a thumbnail/poster image (for video, use a
              still frame or the same video file — browsers show
              the first frame automatically if no poster is set)
       title: short caption shown on hover
@@ -678,8 +682,8 @@ const galleryItems = [
   { type: 'image', src: 'demo-3.jpg', title: 'For You — Message Card' },
   { type: 'image', src: 'demo-4.jpg', title: 'Tap-to-Open Envelope' },
   { type: 'image', src: 'demo-5.jpg', title: 'Always & Forever Finale' },
-  // Example video entry — uncomment and update the path once you add a demo video file:
-  // { type: 'video', src: 'assets/gallery/videos/demo-1.mp4', thumb: 'assets/gallery/videos/demo-1-poster.jpg', title: 'Full Pack Walkthrough' },
+  // Example video entry — uncomment and update the filename once you add a demo video file:
+  // { type: 'video', src: 'demo-video-1.mp4', thumb: 'demo-video-1-poster.jpg', title: 'Full Pack Walkthrough' },
 ];
 
 const WATERMARK_TEXT = 'AB edits · Demo Only';
